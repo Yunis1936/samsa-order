@@ -37,6 +37,7 @@ export default function Home() {
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const cartItems = useMemo(
     () => products.filter((product) => (quantities[product.id] ?? 0) > 0),
@@ -55,14 +56,43 @@ export default function Home() {
     });
   }
 
-  function submitOrder(event: FormEvent<HTMLFormElement>) {
+  async function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!customerName.trim() || !lastName.trim()) {
       setMessage("Пожалуйста, укажите имя и фамилию — так мы сможем подтвердить заказ.");
       return;
     }
+
+    setIsSubmitting(true);
     setMessage("");
-    setSubmitted(true);
+    setSubmitted(false);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName,
+          lastName,
+          delivery,
+          items: cartItems.map((product) => ({
+            id: product.id,
+            quantity: quantities[product.id],
+          })),
+        }),
+      });
+      const result = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(result?.error ?? "Не удалось отправить заказ.");
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Не удалось отправить заказ. Попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -227,7 +257,9 @@ export default function Home() {
                   <input value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Например, Иванова" autoComplete="family-name" />
                 </label>
                 {message && <p className="form-message" role="alert">{message}</p>}
-                <button className="button button-primary" type="submit">Оформить заказ <span>→</span></button>
+                <button className="button button-primary" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Отправляем…" : "Оформить заказ"} <span>→</span>
+                </button>
               </fieldset>
             </form>
             {submitted && (
