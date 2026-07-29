@@ -11,6 +11,12 @@ type Product = {
   accent: string;
 };
 
+type Confirmation = {
+  customerName: string;
+  lastName: string;
+  itemCount: number;
+};
+
 const products: Product[] = [
   {
     id: "chicken-cheese",
@@ -35,7 +41,7 @@ export default function Home() {
   const [customerName, setCustomerName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const cartItems = useMemo(
@@ -48,7 +54,7 @@ export default function Home() {
   );
 
   function changeQuantity(productId: Product["id"], amount: number) {
-    setSubmitted(false);
+    setConfirmation(null);
     setQuantities((current) => {
       const nextAmount = Math.max(0, (current[productId] ?? 0) + amount);
       return { ...current, [productId]: nextAmount };
@@ -64,7 +70,7 @@ export default function Home() {
 
     setIsSubmitting(true);
     setMessage("");
-    setSubmitted(false);
+    setConfirmation(null);
 
     try {
       const response = await fetch("/api/orders", {
@@ -85,7 +91,14 @@ export default function Home() {
         throw new Error(result?.error ?? "Не удалось отправить заказ.");
       }
 
-      setSubmitted(true);
+      setConfirmation({
+        customerName: customerName.trim(),
+        lastName: lastName.trim(),
+        itemCount,
+      });
+      setQuantities({});
+      setCustomerName("");
+      setLastName("");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Не удалось отправить заказ. Попробуйте ещё раз.");
     } finally {
@@ -247,10 +260,10 @@ export default function Home() {
                 </button>
               </fieldset>
             </form>
-            {submitted && (
+            {confirmation && (
               <div className="confirmation" role="status">
-                <strong>Спасибо, {customerName} {lastName}!</strong>
-                <span>Заявка на {itemCount} шт. принята. Скоро свяжемся с вами для подтверждения.</span>
+                <strong>Спасибо, {confirmation.customerName} {confirmation.lastName}!</strong>
+                <span>Заявка на {confirmation.itemCount} шт. принята и передана в работу.</span>
               </div>
             )}
           </div>
