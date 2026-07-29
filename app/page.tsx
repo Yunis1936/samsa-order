@@ -15,14 +15,14 @@ const products: Product[] = [
     id: "chicken-cheese",
     title: "Самса курица + сыр",
     description: "Нежная курица и тянущийся сыр в хрустящем тесте.",
-    image: "/samsa-chicken-cheese.jpg",
+    image: "/samsa-chicken-cheese-real.jpg",
     accent: "#f5c46a",
   },
   {
     id: "beef",
     title: "Самса говядина",
     description: "Сочная говядина с луком — сытный классический вкус.",
-    image: "/samsa-beef.jpg",
+    image: "/samsa-beef-real.jpg",
     accent: "#e6a17b",
   },
 ];
@@ -112,9 +112,12 @@ export default function Home() {
             <div className="hero-sticker">insta<br />samsa</div>
             <div className="hero-photo">
               <img
-                src="/samsa-beef.jpg"
+                src="/samsa-beef-real.jpg"
                 alt="Румяная свежая выпечка"
               />
+            </div>
+            <div className="hero-mini-photo" aria-hidden="true">
+              <img src="/samsa-platter-cc.jpg" alt="" />
             </div>
             <p className="hero-side-note">хрустящее<br />тесто · сочная<br />начинка</p>
           </div>
@@ -243,7 +246,7 @@ export default function Home() {
         <a className="brand footer-brand" href="#top"><span className="brand-mark">i</span><span>insta<br />samsa</span></a>
         <p>Тёплая самса для хорошего дня.</p>
         <div className="footer-links">
-          <a href="https://commons.wikimedia.org/wiki/File:%27Parmuda%27-uzbek_samsa-02.jpg" target="_blank" rel="noreferrer">Фото: Wikimedia Commons</a>
+          <a href="https://commons.wikimedia.org/wiki/File:Sambusa_-_traditional_Tajik_pies_with_meat.jpg" target="_blank" rel="noreferrer">Фото: Parvision, CC BY-SA 4.0</a>
           <a href="#top">Наверх ↑</a>
         </div>
       </footer>
