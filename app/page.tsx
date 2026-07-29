@@ -3,8 +3,8 @@
 import { FormEvent, useMemo, useState } from "react";
 
 type Product = {
-  id: "chicken" | "cheese" | "beef";
-  name: string;
+  id: "chicken-cheese" | "beef";
+  title: string;
   description: string;
   image: string;
   accent: string;
@@ -12,27 +12,17 @@ type Product = {
 
 const products: Product[] = [
   {
-    id: "chicken",
-    name: "Курица",
-    description: "Нежное филе, лук и щепотка ароматных специй.",
-    image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85",
+    id: "chicken-cheese",
+    title: "Самса курица + сыр",
+    description: "Нежная курица и тянущийся сыр в хрустящем тесте.",
+    image: "/samsa-chicken-cheese.jpg",
     accent: "#f5c46a",
   },
   {
-    id: "cheese",
-    name: "Сыр",
-    description: "Тянущийся сыр и зелень в хрустящем слоёном тесте.",
-    image:
-      "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=900&q=85",
-    accent: "#d9e7ae",
-  },
-  {
     id: "beef",
-    name: "Говядина",
+    title: "Самса говядина",
     description: "Сочная говядина с луком — сытный классический вкус.",
-    image:
-      "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85",
+    image: "/samsa-beef.jpg",
     accent: "#e6a17b",
   },
 ];
@@ -102,7 +92,7 @@ export default function Home() {
             <div className="hero-sticker">свежая<br />выпечка</div>
             <div className="hero-photo">
               <img
-                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1500&q=90"
+                src="/samsa-beef.jpg"
                 alt="Румяная свежая выпечка"
               />
             </div>
@@ -128,11 +118,11 @@ export default function Home() {
               <article className="product-card" key={product.id}>
                 <div className="product-image" style={{ backgroundColor: product.accent }}>
                   <span className="product-number">0{index + 1}</span>
-                  <img src={product.image} alt={`Самса: ${product.name.toLowerCase()}`} />
+                  <img src={product.image} alt={product.title} />
                 </div>
                 <div className="product-content">
                   <div>
-                    <h3>Самса с {product.name.toLowerCase()}</h3>
+                    <h3>{product.title}</h3>
                     <p>{product.description}</p>
                   </div>
                   {quantity === 0 ? (
@@ -140,7 +130,7 @@ export default function Home() {
                       Добавить <span>+</span>
                     </button>
                   ) : (
-                    <div className="quantity-picker" aria-label={`Количество: самса с ${product.name.toLowerCase()}`}>
+                    <div className="quantity-picker" aria-label={`Количество: ${product.title}`}>
                       <button onClick={() => changeQuantity(product.id, -1)} aria-label="Убрать одну">−</button>
                       <strong>{quantity}</strong>
                       <button onClick={() => changeQuantity(product.id, 1)} aria-label="Добавить ещё одну">+</button>
@@ -171,11 +161,11 @@ export default function Home() {
               <ul className="cart-list">
                 {cartItems.map((product) => (
                   <li key={product.id}>
-                    <span>Самса с {product.name.toLowerCase()}</span>
+                    <span>{product.title}</span>
                     <div className="inline-quantity">
-                      <button onClick={() => changeQuantity(product.id, -1)} aria-label={`Убрать самсу с ${product.name.toLowerCase()}`}>−</button>
+                      <button onClick={() => changeQuantity(product.id, -1)} aria-label={`Убрать ${product.title}`}>−</button>
                       <b>{quantities[product.id]}</b>
-                      <button onClick={() => changeQuantity(product.id, 1)} aria-label={`Добавить самсу с ${product.name.toLowerCase()}`}>+</button>
+                      <button onClick={() => changeQuantity(product.id, 1)} aria-label={`Добавить ${product.title}`}>+</button>
                     </div>
                   </li>
                 ))}
@@ -224,7 +214,10 @@ export default function Home() {
       <footer className="footer container">
         <a className="brand footer-brand" href="#top"><span className="brand-mark">С</span><span>самса<br />у дома</span></a>
         <p>Тёплая самса для хорошего дня.</p>
-        <a href="#top">Наверх ↑</a>
+        <div className="footer-links">
+          <a href="https://commons.wikimedia.org/wiki/File:%27Parmuda%27-uzbek_samsa-02.jpg" target="_blank" rel="noreferrer">Фото: Wikimedia Commons</a>
+          <a href="#top">Наверх ↑</a>
+        </div>
       </footer>
     </main>
   );
