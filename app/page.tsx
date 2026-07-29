@@ -6,9 +6,9 @@ type Product = {
   id: "chicken-cheese" | "beef";
   title: string;
   description: string;
-  note: string;
+  tag: string;
   image: string;
-  accent: string;
+  tone: "sun" | "tomato";
 };
 
 type Confirmation = {
@@ -20,19 +20,19 @@ type Confirmation = {
 const products: Product[] = [
   {
     id: "chicken-cheese",
-    title: "Самса курица + сыр",
+    title: "Курица + сыр",
     description: "Нежная курица и тянущийся сыр в хрустящем тесте.",
-    note: "Нежная начинка",
+    tag: "самая уютная",
     image: "/samsa-chicken-cheese-real.jpg",
-    accent: "#f5c46a",
+    tone: "sun",
   },
   {
     id: "beef",
-    title: "Самса говядина",
-    description: "Сочная говядина с луком — сытный классический вкус.",
-    note: "Сытная классика",
+    title: "Говядина",
+    description: "Сочная говядина с луком — тот самый сытный вариант.",
+    tag: "заряжает",
     image: "/samsa-beef-real.jpg",
-    accent: "#e6a17b",
+    tone: "tomato",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function Home() {
   async function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!customerName.trim() || !lastName.trim()) {
-      setMessage("Пожалуйста, укажите имя и фамилию — так мы сможем подтвердить заказ.");
+      setMessage("Укажите имя и фамилию — так поймём, чей это заказ.");
       return;
     }
 
@@ -108,127 +108,132 @@ export default function Home() {
 
   return (
     <main>
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero" id="top" aria-labelledby="hero-title">
         <nav className="nav container" aria-label="Основная навигация">
           <a className="brand" href="#top" aria-label="insta-samsa — наверх">
-            <span className="brand-mark">i</span>
+            <span className="brand-mark" aria-hidden="true">◒</span>
             <span>insta<br />samsa</span>
           </a>
           <div className="nav-actions">
             <a href="#menu">Меню</a>
             <a className="cart-link" href="#order">
-              Заказ <span>{itemCount}</span>
+              Корзина <span>{itemCount}</span>
             </a>
           </div>
         </nav>
 
-        <div id="top" className="hero-grid container">
+        <div className="hero-grid container">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> выпечка с характером</p>
-            <h1 id="hero-title">Самса,<br /><em>в которую</em><br />влюбляешься.</h1>
+            <p className="kicker"><span>✦</span> план на перерыв готов</p>
+            <h1 id="hero-title">Соберём<br /><em>самса-брейк</em><br />за пару кликов.</h1>
             <p className="hero-text">
-              Румяная корочка, щедрая начинка и тот самый аромат, который остаётся в памяти.
+              Когда хочется отвлечься, похрустеть и обсудить всё, кроме работы.
             </p>
-            <div className="hero-flavours" aria-label="Сегодня в меню">
-              <p>Сегодня в меню</p>
-              <div>
-                <span className="hero-flavour"><i aria-hidden="true" /> Курица + сыр</span>
-                <span className="hero-flavour"><i aria-hidden="true" /> Говядина</span>
-              </div>
-            </div>
-            <p className="availability">Добавляйте самсу в заказ в меню ниже · Готовим каждый день 10:00–20:00</p>
+            <a className="hero-link" href="#menu">Выбрать начинку <span>↓</span></a>
+            <p className="hero-note">Две любимые начинки · одна общая причина сделать перерыв</p>
           </div>
-          <div className="hero-photo-wrap" aria-label="Свежая выпечка">
-            <div className="hero-sticker">insta<br />samsa</div>
+
+          <div className="hero-collage" aria-label="Свежая самса и нарисованные детали">
+            <div className="route-line route-line-one" aria-hidden="true" />
+            <div className="route-line route-line-two" aria-hidden="true" />
+            <div className="photo-burst" aria-hidden="true" />
             <div className="hero-photo">
-              <img
-                src="/samsa-beef-real.jpg"
-                alt="Румяная свежая выпечка"
-              />
+              <img src="/samsa-beef-real.jpg" alt="Румяная самса с говядиной" />
             </div>
+            <div className="hero-chip chip-yellow">хруст<br />на паузе</div>
+            <div className="hero-chip chip-blue">обед<br />заслужен</div>
             <div className="hero-mini-photo" aria-hidden="true">
               <img src="/samsa-platter-cc.jpg" alt="" />
             </div>
+            <div className="drawn-pin" aria-hidden="true"><i /><i /></div>
+            <div className="flour-cloud" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
+            <div className="samsa-squad" aria-hidden="true"><i /><i /><i /></div>
           </div>
-          <div className="hero-food-elements" aria-hidden="true">
-            <div className="rolling-pin" />
-            <div className="flour">
-              <i /><i /><i /><i /><i /><i /><i />
+        </div>
+      </section>
+
+      <section className="break-map container" aria-labelledby="break-map-title">
+        <div className="map-heading">
+          <p className="kicker"><span>✦</span> быстрый маршрут</p>
+          <h2 id="break-map-title">От «что бы съесть?»<br />до <em>счастливого брейка.</em></h2>
+        </div>
+        <div className="map-stops" aria-label="Как собрать заказ">
+          <article className="map-stop map-stop-yellow">
+            <span className="map-icon" aria-hidden="true">◢</span>
+            <div><b>Выбираем</b><p>берём любимую начинку</p></div>
+          </article>
+          <span className="map-dots" aria-hidden="true">······</span>
+          <article className="map-stop map-stop-blue">
+            <span className="map-icon" aria-hidden="true">+</span>
+            <div><b>Собираем</b><p>добавляем в общий заказ</p></div>
+          </article>
+          <span className="map-dots" aria-hidden="true">······</span>
+          <article className="map-stop map-stop-tomato">
+            <span className="map-icon" aria-hidden="true">✦</span>
+            <div><b>Хрустит</b><p>начинается нормальный перерыв</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section className="menu-section" id="menu" aria-labelledby="menu-title">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <p className="kicker"><span>✦</span> сегодня в меню</p>
+              <h2 id="menu-title">Выбирайте<br /><em>свою самсу.</em></h2>
             </div>
-            <div className="meat-piece"><i /><i /><i /></div>
-            <div className="mini-samsas"><i /><i /><i /></div>
+            <p className="section-intro">Можно взять один вкус. Можно оба. Никто не осудит.</p>
           </div>
-        </div>
-        <div className="hero-sun" aria-hidden="true" />
-      </section>
 
-      <section id="menu" className="menu-section container" aria-labelledby="menu-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow"><span /> выберите вкус</p>
-            <h2 id="menu-title">Ваша самса<br /><em>сегодня</em></h2>
-          </div>
-          <p className="section-intro">Выберите одну или несколько начинок. Мы всё бережно соберём.</p>
-        </div>
-
-        <div className="menu-path" aria-label="Как оформить заказ">
-          <span><b>01</b> выберите начинку</span>
-          <i aria-hidden="true" />
-          <span><b>02</b> добавьте самсу</span>
-          <i aria-hidden="true" />
-          <span><b>03</b> оставьте контакты</span>
-        </div>
-
-        <div className="product-grid">
-          {products.map((product, index) => {
-            const quantity = quantities[product.id] ?? 0;
-            return (
-              <article className="product-card" key={product.id}>
-                <div className="product-image" style={{ backgroundColor: product.accent }}>
-                  <span className="product-number">0{index + 1}</span>
-                  <img src={product.image} alt={product.title} />
-                </div>
-                <div className="product-content">
-                  <div>
-                    <span className="product-note">{product.note}</span>
-                    <h3>{product.title}</h3>
-                    <p>{product.description}</p>
+          <div className="product-grid">
+            {products.map((product) => {
+              const quantity = quantities[product.id] ?? 0;
+              return (
+                <article className={`product-card product-card-${product.tone}`} key={product.id}>
+                  <div className="product-image">
+                    <span className="product-tag">{product.tag}</span>
+                    <span className="product-scribble" aria-hidden="true">✦</span>
+                    <img src={product.image} alt={`Самса ${product.title.toLowerCase()}`} />
                   </div>
-                  {quantity === 0 ? (
-                    <button className="add-button" onClick={() => changeQuantity(product.id, 1)}>
-                      Добавить <span>+</span>
-                    </button>
-                  ) : (
-                    <div className="quantity-picker" aria-label={`Количество: ${product.title}`}>
-                      <button onClick={() => changeQuantity(product.id, -1)} aria-label="Убрать одну">−</button>
-                      <strong>{quantity}</strong>
-                      <button onClick={() => changeQuantity(product.id, 1)} aria-label="Добавить ещё одну">+</button>
+                  <div className="product-content">
+                    <div>
+                      <p className="product-kicker">самса</p>
+                      <h3>{product.title}</h3>
+                      <p>{product.description}</p>
                     </div>
-                  )}
-                </div>
-              </article>
-            );
-          })}
+                    {quantity === 0 ? (
+                      <button className="add-button" onClick={() => changeQuantity(product.id, 1)}>
+                        Добавить в брейк <span>+</span>
+                      </button>
+                    ) : (
+                      <div className="quantity-picker" aria-label={`Количество: Самса ${product.title}`}>
+                        <button onClick={() => changeQuantity(product.id, -1)} aria-label="Убрать одну">−</button>
+                        <strong>{quantity}<small> шт.</small></strong>
+                        <button onClick={() => changeQuantity(product.id, 1)} aria-label="Добавить ещё одну">+</button>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <section id="order" className="order-section">
+      <section id="order" className="order-section" aria-labelledby="order-title">
         <div className="container order-grid">
           <div className="order-intro">
-            <p className="eyebrow eyebrow-light"><span /> почти готово</p>
-            <h2>Соберём ваш<br /><em>заказ</em></h2>
-            <p>Оставьте имя и фамилию — примем заказ и начнём готовить.</p>
-            <div className="order-steps" aria-label="Этапы заказа">
-              <span><i>1</i> Самса</span>
-              <span><i>2</i> Контакты</span>
-              <span><i>3</i> Подтверждение</span>
+            <p className="kicker kicker-light"><span>✦</span> почти у цели</p>
+            <h2 id="order-title">Ваш<br /><em>самса-брейк</em></h2>
+            <p>Оставьте имя и фамилию — заказ сразу улетит в общий список.</p>
+            <div className="order-doodle" aria-hidden="true">
+              <span>◢</span><i>····</i><span>✦</span>
             </div>
-            <div className="order-ornament" aria-hidden="true">✦</div>
           </div>
 
           <div className="order-card">
             <div className="order-card-header">
-              <h3>Ваш заказ</h3>
+              <div><p>собираем</p><h3>Ваша корзина</h3></div>
               <span aria-live="polite">{itemCount ? `${itemCount} шт.` : "пусто"}</span>
             </div>
             {cartItems.length > 0 ? (
@@ -236,34 +241,36 @@ export default function Home() {
                 {cartItems.map((product) => (
                   <li key={product.id}>
                     <span>{product.title}</span>
-                    <b>{quantities[product.id]} шт.</b>
+                    <b>× {quantities[product.id]}</b>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="empty-cart">Выберите начинку выше — здесь появится ваш заказ.</p>
+              <p className="empty-cart">Выберите начинку выше — здесь появится ваш брейк.</p>
             )}
 
             <form onSubmit={submitOrder}>
               <fieldset disabled={itemCount === 0} aria-label="Контакты для заказа">
-                <label>
-                  Имя
-                  <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Например, Анна" autoComplete="given-name" />
-                </label>
-                <label>
-                  Фамилия
-                  <input value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Например, Иванова" autoComplete="family-name" />
-                </label>
+                <div className="name-fields">
+                  <label>
+                    Имя
+                    <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Например, Аня" autoComplete="given-name" />
+                  </label>
+                  <label>
+                    Фамилия
+                    <input value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Например, Смирнова" autoComplete="family-name" />
+                  </label>
+                </div>
                 {message && <p className="form-message" role="alert">{message}</p>}
                 <button className="button button-primary" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Отправляем…" : "Оформить заказ"} <span>→</span>
+                  {isSubmitting ? "Отправляем…" : "Оформить самса-брейк"} <span>→</span>
                 </button>
               </fieldset>
             </form>
             {confirmation && (
               <div className="confirmation" role="status">
-                <strong>Спасибо, {confirmation.customerName} {confirmation.lastName}!</strong>
-                <span>Заявка на {confirmation.itemCount} шт. принята и передана в работу.</span>
+                <span aria-hidden="true">✦</span>
+                <div><strong>Готово, {confirmation.customerName} {confirmation.lastName}!</strong><p>В общий список добавлено: {confirmation.itemCount} шт.</p></div>
               </div>
             )}
           </div>
@@ -271,10 +278,10 @@ export default function Home() {
       </section>
 
       <footer className="footer container">
-        <a className="brand footer-brand" href="#top"><span className="brand-mark">i</span><span>insta<br />samsa</span></a>
-        <p>Тёплая самса для хорошего дня.</p>
+        <a className="brand footer-brand" href="#top"><span className="brand-mark" aria-hidden="true">◒</span><span>insta<br />samsa</span></a>
+        <p>Самса любит перерывы. И людей тоже.</p>
         <div className="footer-links">
-          <a href="https://commons.wikimedia.org/wiki/File:Sambusa_-_traditional_Tajik_pies_with_meat.jpg" target="_blank" rel="noreferrer">Фото: Parvision, CC BY-SA 4.0</a>
+          <a href="https://commons.wikimedia.org/wiki/File:Sambusa_-_traditional_Tajik_pies_with_meat.jpg" target="_blank" rel="noreferrer">Фото еды</a>
           <a href="#top">Наверх ↑</a>
         </div>
       </footer>
