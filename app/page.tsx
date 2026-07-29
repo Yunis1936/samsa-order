@@ -66,9 +66,9 @@ export default function Home() {
     <main>
       <section className="hero" aria-labelledby="hero-title">
         <nav className="nav container" aria-label="Основная навигация">
-          <a className="brand" href="#top" aria-label="Самса у дома — наверх">
-            <span className="brand-mark">С</span>
-            <span>самса<br />у дома</span>
+          <a className="brand" href="#top" aria-label="insta-samsa — наверх">
+            <span className="brand-mark">i</span>
+            <span>insta<br />samsa</span>
           </a>
           <div className="nav-actions">
             <a href="#menu">Меню</a>
@@ -80,16 +80,36 @@ export default function Home() {
 
         <div id="top" className="hero-grid container">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> с пылу, с жару</p>
-            <h1 id="hero-title">Самса,<br /><em>которую</em><br />ждут.</h1>
+            <p className="eyebrow"><span /> выпечка с характером</p>
+            <h1 id="hero-title">Самса,<br /><em>в которую</em><br />влюбляешься.</h1>
             <p className="hero-text">
-              Румяная корочка, щедрая начинка и тот самый аромат свежей выпечки.
+              Румяная корочка, щедрая начинка и тот самый аромат, который остаётся в памяти.
             </p>
-            <a className="button button-dark" href="#menu">Выбрать начинку <span>↓</span></a>
+            <div className="hero-switcher" role="group" aria-label="Быстрый выбор самсы">
+              <p>Выберите свою самсу</p>
+              <div>
+                {products.map((product) => {
+                  const quantity = quantities[product.id] ?? 0;
+                  return (
+                    <button
+                      type="button"
+                      key={product.id}
+                      className={quantity ? "hero-option is-chosen" : "hero-option"}
+                      onClick={() => changeQuantity(product.id, 1)}
+                    >
+                      <span className="option-samsa" aria-hidden="true" />
+                      <span>{product.id === "chicken-cheese" ? "Курица + сыр" : "Говядина"}</span>
+                      <b>{quantity ? `${quantity} шт.` : "+"}</b>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <a className="button button-dark" href="#order">Оформить заказ <span>→</span></a>
             <p className="availability">Готовим каждый день · 10:00–20:00</p>
           </div>
           <div className="hero-photo-wrap" aria-label="Свежая выпечка">
-            <div className="hero-sticker">свежая<br />выпечка</div>
+            <div className="hero-sticker">insta<br />samsa</div>
             <div className="hero-photo">
               <img
                 src="/samsa-beef.jpg"
@@ -97,6 +117,14 @@ export default function Home() {
               />
             </div>
             <p className="hero-side-note">хрустящее<br />тесто · сочная<br />начинка</p>
+          </div>
+          <div className="hero-food-elements" aria-hidden="true">
+            <div className="rolling-pin" />
+            <div className="flour">
+              <i /><i /><i /><i /><i /><i /><i />
+            </div>
+            <div className="meat-piece"><i /><i /><i /></div>
+            <div className="mini-samsas"><i /><i /><i /></div>
           </div>
         </div>
         <div className="hero-sun" aria-hidden="true" />
@@ -212,7 +240,7 @@ export default function Home() {
       </section>
 
       <footer className="footer container">
-        <a className="brand footer-brand" href="#top"><span className="brand-mark">С</span><span>самса<br />у дома</span></a>
+        <a className="brand footer-brand" href="#top"><span className="brand-mark">i</span><span>insta<br />samsa</span></a>
         <p>Тёплая самса для хорошего дня.</p>
         <div className="footer-links">
           <a href="https://commons.wikimedia.org/wiki/File:%27Parmuda%27-uzbek_samsa-02.jpg" target="_blank" rel="noreferrer">Фото: Wikimedia Commons</a>

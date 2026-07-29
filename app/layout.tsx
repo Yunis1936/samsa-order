@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Самса у дома — заказать свежую самсу",
+  title: "insta-samsa — заказать свежую самсу",
   description: "Выберите самсу с курицей и сыром или с говядиной и оформите заказ.",
   icons: {
     icon: "/favicon.svg",
