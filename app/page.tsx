@@ -32,7 +32,6 @@ const products: Product[] = [
 
 export default function Home() {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const [delivery, setDelivery] = useState<"pickup" | "courier">("pickup");
   const [customerName, setCustomerName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
@@ -74,7 +73,6 @@ export default function Home() {
         body: JSON.stringify({
           customerName,
           lastName,
-          delivery,
           items: cartItems.map((product) => ({
             id: product.id,
             quantity: quantities[product.id],
@@ -206,7 +204,7 @@ export default function Home() {
           <div className="order-intro">
             <p className="eyebrow eyebrow-light"><span /> почти готово</p>
             <h2>Соберём ваш<br /><em>заказ</em></h2>
-            <p>Оставьте контакты — уточним время и приготовим самсу к вашему приходу.</p>
+            <p>Оставьте имя и фамилию — примем заказ и начнём готовить.</p>
             <div className="order-steps" aria-label="Этапы заказа">
               <span><i>1</i> Самса</span>
               <span><i>2</i> Контакты</span>
@@ -234,20 +232,7 @@ export default function Home() {
             )}
 
             <form onSubmit={submitOrder}>
-              <fieldset disabled={itemCount === 0}>
-                <legend>Как получить заказ?</legend>
-                <div className="delivery-choice">
-                  <button
-                    type="button"
-                    className={delivery === "pickup" ? "selected" : ""}
-                    onClick={() => setDelivery("pickup")}
-                  >Самовывоз</button>
-                  <button
-                    type="button"
-                    className={delivery === "courier" ? "selected" : ""}
-                    onClick={() => setDelivery("courier")}
-                  >Доставка</button>
-                </div>
+              <fieldset disabled={itemCount === 0} aria-label="Контакты для заказа">
                 <label>
                   Имя
                   <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Например, Анна" autoComplete="given-name" />

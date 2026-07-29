@@ -122,9 +122,6 @@ h2 { margin-bottom: 0; font-size: clamp(48px, 5.2vw, 70px); line-height: .91; }
 fieldset { min-width: 0; margin: 0; padding: 12px 0 0; border: 0; }
 fieldset:disabled { opacity: .52; }
 legend { margin-bottom: 11px; font-size: 13px; font-weight: 700; }
-.delivery-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-.delivery-choice button { min-height: 35px; border: 1px solid var(--line); background: transparent; color: #665c53; font-size: 12px; }
-.delivery-choice button.selected { border-color: var(--ink); background: var(--ink); color: white; }
 label { display: block; margin: 12px 0; color: #5e564e; font-size: 11px; font-weight: 700; letter-spacing: .2px; }
 input { display: block; width: 100%; margin-top: 6px; padding: 11px 0 8px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; outline: none; background: transparent; color: var(--ink); font-size: 15px; font-weight: 400; }
 input:focus { border-bottom-color: var(--orange); }
