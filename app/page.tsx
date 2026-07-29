@@ -34,7 +34,7 @@ export default function Home() {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [delivery, setDelivery] = useState<"pickup" | "courier">("pickup");
   const [customerName, setCustomerName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -57,8 +57,8 @@ export default function Home() {
 
   function submitOrder(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!customerName.trim() || !phone.trim()) {
-      setMessage("Пожалуйста, укажите имя и телефон — так мы сможем подтвердить заказ.");
+    if (!customerName.trim() || !lastName.trim()) {
+      setMessage("Пожалуйста, укажите имя и фамилию — так мы сможем подтвердить заказ.");
       return;
     }
     setMessage("");
@@ -220,12 +220,12 @@ export default function Home() {
                   >Доставка</button>
                 </div>
                 <label>
-                  Ваше имя
-                  <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Например, Анна" autoComplete="name" />
+                  Имя
+                  <input value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Например, Анна" autoComplete="given-name" />
                 </label>
                 <label>
-                  Телефон
-                  <input value={phone} onChange={(event) => setPhone(event.target.value)} placeholder="+7 900 000-00-00" type="tel" autoComplete="tel" />
+                  Фамилия
+                  <input value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Например, Иванова" autoComplete="family-name" />
                 </label>
                 {message && <p className="form-message" role="alert">{message}</p>}
                 <button className="button button-primary" type="submit">Оформить заказ <span>→</span></button>
@@ -233,7 +233,7 @@ export default function Home() {
             </form>
             {submitted && (
               <div className="confirmation" role="status">
-                <strong>Спасибо, {customerName}!</strong>
+                <strong>Спасибо, {customerName} {lastName}!</strong>
                 <span>Заявка на {itemCount} шт. принята. Скоро свяжемся с вами для подтверждения.</span>
               </div>
             )}
