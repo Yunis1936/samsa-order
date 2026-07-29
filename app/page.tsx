@@ -6,6 +6,7 @@ type Product = {
   id: "chicken-cheese" | "beef";
   title: string;
   description: string;
+  note: string;
   image: string;
   accent: string;
 };
@@ -15,6 +16,7 @@ const products: Product[] = [
     id: "chicken-cheese",
     title: "Самса курица + сыр",
     description: "Нежная курица и тянущийся сыр в хрустящем тесте.",
+    note: "Нежная начинка",
     image: "/samsa-chicken-cheese-real.jpg",
     accent: "#f5c46a",
   },
@@ -22,6 +24,7 @@ const products: Product[] = [
     id: "beef",
     title: "Самса говядина",
     description: "Сочная говядина с луком — сытный классический вкус.",
+    note: "Сытная классика",
     image: "/samsa-beef-real.jpg",
     accent: "#e6a17b",
   },
@@ -85,28 +88,14 @@ export default function Home() {
             <p className="hero-text">
               Румяная корочка, щедрая начинка и тот самый аромат, который остаётся в памяти.
             </p>
-            <div className="hero-switcher" role="group" aria-label="Быстрый выбор самсы">
-              <p>Выберите свою самсу</p>
+            <div className="hero-flavours" aria-label="Сегодня в меню">
+              <p>Сегодня в меню</p>
               <div>
-                {products.map((product) => {
-                  const quantity = quantities[product.id] ?? 0;
-                  return (
-                    <button
-                      type="button"
-                      key={product.id}
-                      className={quantity ? "hero-option is-chosen" : "hero-option"}
-                      onClick={() => changeQuantity(product.id, 1)}
-                    >
-                      <span className="option-samsa" aria-hidden="true" />
-                      <span>{product.id === "chicken-cheese" ? "Курица + сыр" : "Говядина"}</span>
-                      <b>{quantity ? `${quantity} шт.` : "+"}</b>
-                    </button>
-                  );
-                })}
+                <span className="hero-flavour"><i aria-hidden="true" /> Курица + сыр</span>
+                <span className="hero-flavour"><i aria-hidden="true" /> Говядина</span>
               </div>
             </div>
-            <a className="button button-dark" href="#order">Оформить заказ <span>→</span></a>
-            <p className="availability">Готовим каждый день · 10:00–20:00</p>
+            <p className="availability">Добавляйте самсу в заказ в меню ниже · Готовим каждый день 10:00–20:00</p>
           </div>
           <div className="hero-photo-wrap" aria-label="Свежая выпечка">
             <div className="hero-sticker">insta<br />samsa</div>
@@ -142,6 +131,14 @@ export default function Home() {
           <p className="section-intro">Выберите одну или несколько начинок. Мы всё бережно соберём.</p>
         </div>
 
+        <div className="menu-path" aria-label="Как оформить заказ">
+          <span><b>01</b> выберите начинку</span>
+          <i aria-hidden="true" />
+          <span><b>02</b> добавьте самсу</span>
+          <i aria-hidden="true" />
+          <span><b>03</b> оставьте контакты</span>
+        </div>
+
         <div className="product-grid">
           {products.map((product, index) => {
             const quantity = quantities[product.id] ?? 0;
@@ -153,6 +150,7 @@ export default function Home() {
                 </div>
                 <div className="product-content">
                   <div>
+                    <span className="product-note">{product.note}</span>
                     <h3>{product.title}</h3>
                     <p>{product.description}</p>
                   </div>
@@ -180,6 +178,11 @@ export default function Home() {
             <p className="eyebrow eyebrow-light"><span /> почти готово</p>
             <h2>Соберём ваш<br /><em>заказ</em></h2>
             <p>Оставьте контакты — уточним время и приготовим самсу к вашему приходу.</p>
+            <div className="order-steps" aria-label="Этапы заказа">
+              <span><i>1</i> Самса</span>
+              <span><i>2</i> Контакты</span>
+              <span><i>3</i> Подтверждение</span>
+            </div>
             <div className="order-ornament" aria-hidden="true">✦</div>
           </div>
 
@@ -193,11 +196,7 @@ export default function Home() {
                 {cartItems.map((product) => (
                   <li key={product.id}>
                     <span>{product.title}</span>
-                    <div className="inline-quantity">
-                      <button onClick={() => changeQuantity(product.id, -1)} aria-label={`Убрать ${product.title}`}>−</button>
-                      <b>{quantities[product.id]}</b>
-                      <button onClick={() => changeQuantity(product.id, 1)} aria-label={`Добавить ${product.title}`}>+</button>
-                    </div>
+                    <b>{quantities[product.id]} шт.</b>
                   </li>
                 ))}
               </ul>
