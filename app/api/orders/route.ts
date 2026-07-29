@@ -47,7 +47,7 @@ export async function POST(request: Request) {
           if (!isProductId(item.id) || typeof item.quantity !== "number") return [];
           const quantity = Math.floor(item.quantity);
           if (quantity < 1 || quantity > 30) return [];
-          return [{ title: PRODUCTS[item.id], quantity }];
+          return [{ id: item.id, quantity }];
         })
       : [];
 
