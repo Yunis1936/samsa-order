@@ -51,7 +51,6 @@ h1 em, h2 em { color: var(--orange); font-style: italic; }
 .hero-mini-photo { position: absolute; z-index: 2; bottom: 30px; left: -13px; width: 132px; height: 108px; overflow: hidden; border: 4px solid var(--paper); box-shadow: 6px 7px 0 rgba(130, 51, 27, .22); transform: rotate(-6deg); }
 .hero-mini-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-sticker { position: absolute; z-index: 1; top: 112px; left: 0; display: grid; width: 105px; height: 105px; place-items: center; border-radius: 50%; background: #e65f2d; color: white; text-align: center; font-family: Georgia, serif; font-size: 16px; line-height: 1.05; transform: rotate(-12deg); }
-.hero-side-note { position: absolute; right: 0; bottom: 86px; margin: 0; font-size: 12px; line-height: 1.35; transform: rotate(-7deg); }
 .hero-sun { position: absolute; z-index: -1; width: 680px; height: 680px; right: -315px; top: -105px; border-radius: 50%; background: #f0bf74; opacity: .58; }
 .hero-food-elements { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .rolling-pin { position: absolute; top: 54px; right: 4%; width: 118px; height: 19px; border-radius: 30px; background: #c46738; box-shadow: inset 0 -4px 0 #9b492d; transform: rotate(-27deg); opacity: .9; }
@@ -156,7 +155,6 @@ input::placeholder { color: #aaa095; }
   .hero-photo { width: 265px; height: 290px; margin-left: 56px; }
   .hero-mini-photo { left: 0; bottom: 20px; width: 93px; height: 76px; border-width: 3px; }
   .hero-sticker { top: 50px; left: 4px; width: 81px; height: 81px; font-size: 13px; }
-  .hero-side-note { display: none; }
   .hero-sun { width: 420px; height: 420px; top: 220px; right: -220px; }
   .rolling-pin { top: 365px; right: -22px; transform: rotate(-20deg) scale(.7); }
   .flour { top: 305px; left: 1%; transform: scale(.7) rotate(-18deg); }

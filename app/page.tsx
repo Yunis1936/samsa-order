@@ -108,7 +108,6 @@ export default function Home() {
             <div className="hero-mini-photo" aria-hidden="true">
               <img src="/samsa-platter-cc.jpg" alt="" />
             </div>
-            <p className="hero-side-note">хрустящее<br />тесто · сочная<br />начинка</p>
           </div>
           <div className="hero-food-elements" aria-hidden="true">
             <div className="rolling-pin" />
