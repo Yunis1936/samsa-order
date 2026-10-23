@@ -18,6 +18,12 @@ npm run build
 
 This starter does not use `wrangler.jsonc`.
 
+## Заказы
+
+Заказы с сайта передаются через Google Apps Script в [таблицу заказов](https://docs.google.com/spreadsheets/d/1T5HLdoSol5iFLEJcw2qx_5R6CzV8y2qwVyqz8k4oa08/edit?gid=1488496470#gid=1488496470).
+
+Адрес webhook и его секрет хранятся только в переменных окружения `GOOGLE_ORDERS_WEBHOOK_URL` и `GOOGLE_ORDERS_WEBHOOK_SECRET`; не добавляйте их в репозиторий.
+
 ## Included Shape
 
 - edit site code under `app/`
